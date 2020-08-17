@@ -12,20 +12,20 @@ async function read(stream: NodeJS.ReadStream | fs.ReadStream) {
   return Buffer.concat(chunks).toString('utf8')
 }
 
-class GraphqlQueryGenerator extends Command {
+class GraphqlOperationGenerator extends Command {
   static description = 'Automatically generate GraphQL operations from a schema'
   static examples = [
     '# Pipe from stdin:',
-    '$ cat my-schema.graphql | graphql-query-generator --all',
-    '$ cat my-schema.graphql | graphql-query-generator --operations queries mutations --depth 2',
+    '$ cat my-schema.graphql | graphql-operation-generator --all',
+    '$ cat my-schema.graphql | graphql-operation-generator --operations queries mutations --depth 2',
     '# Or use a filepath to a schema:',
     '$ graphql-query-generator --all --schema=./my-schema.graphql',
     '---------------------------------------------------------------------------',
     '# 1. Use "graphqurl" to save introspection schema to file:',
     '$ npx gq http://localhost:8080/v1/graphql --introspect > schema.graphql',
     '',
-    '# 2. Use "graphql-query-generator" to create queries, mutations, and subscriptions for every type in the schema:',
-    '$ cat schema.graphql | graphql-query-generator --all > queries.graphql',
+    '# 2. Use "graphql-operation-generator" to create queries, mutations, and subscriptions for every type in the schema:',
+    '$ cat schema.graphql | graphql-operation-generator --all > queries.graphql',
     '',
     '# 3. Use "graphql-code-generator" to generate Typescript types and a query client for every operation:',
     '$ npx graphql-code-generator',
@@ -69,7 +69,7 @@ class GraphqlQueryGenerator extends Command {
   }
 
   async run() {
-    const { flags } = this.parse(GraphqlQueryGenerator)
+    const { flags } = this.parse(GraphqlOperationGenerator)
 
     // Bad part of having a flexible CLI -- need to double check stdin and arg values
     if (isInteractiveSession)
@@ -115,4 +115,4 @@ class GraphqlQueryGenerator extends Command {
   }
 }
 
-export = GraphqlQueryGenerator
+export = GraphqlOperationGenerator

@@ -1,7 +1,7 @@
 {
   "name": "graphql-operation-generator",
   "description": "Automatically generate GraphQL operations from a schema",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Gavin",
   "bin": {
     "graphql-operation-generator": "./bin/run"
