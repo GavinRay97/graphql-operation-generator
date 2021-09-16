@@ -104,7 +104,7 @@ function generateOperationNode(
   const operationFields = selectFieldsRecursive(doc, field, maxDepth)
   const selectionSet = operationFields.selectionSet?.selections
   // If node has no selections generated, don't print this node at all
-  if (!selectionSet?.length) return
+  if (!selectionSet?.length && !isScalar(doc, field.getType())) return
 
   const query = t.operation({
     operation: operation,
